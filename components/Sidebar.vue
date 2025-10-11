@@ -89,14 +89,14 @@
     </div>
     <div class="contacts">
       <div class="element_contacts">
-        <div class="icon_mini">
-          <img src="../public/mail-outline.svg" />
+        <div class="icon-mini">
+          <img class="icon-mini__element" src="../public/mail-outline.svg" />
         </div>
         <div class="text_sign">supportmusrum@vmuzey.com</div>
       </div>
       <div class="element_contacts">
-        <div class="icon_mini">
-          <img src="../public/phone-outline.svg" />
+        <div class="icon-mini">
+          <img class="icon-mini__element" src="../public/phone-outline.svg" />
         </div>
         <div class="text_sign">+7 (812) 655-75-94</div>
       </div>
@@ -212,8 +212,13 @@
 .contacts {
   margin-top: auto;
 }
-.icon_mini {
-  margin-right: 12px;
+.icon-mini {
+  margin-right: 8px;
+  display: flex;
+}
+.icon-mini__element {
+  width: 20px;
+  height: 20px;
 }
 .buttons {
   display: flex;
