@@ -44,8 +44,6 @@
   width: 20px;
   height: 20px;
 }
-.header__id_name {
-}
 .header-id {
   font-size: 12px;
   font-weight: 400;

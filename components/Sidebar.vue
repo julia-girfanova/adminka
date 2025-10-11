@@ -152,8 +152,7 @@
   margin-right: 11px;
   display: flex;
 }
-.arrow {
-}
+
 .list-item_active .arrow {
   transform: rotate(180deg);
 }
