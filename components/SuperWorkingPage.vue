@@ -7,19 +7,27 @@
     </div>
     <ListControls />
     <div class="events-list">
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
+      <EventCard v-for="event of events" :key="event.id" />
     </div>
     <button class="new-event">Создать событие</button>
   </div>
 </template>
+
+<script>
+import ListControls from "../components/ListControls.vue";
+import EventCard from "../components/EventCard.vue";
+export default {
+  components: {
+    ListControls,
+    EventCard,
+  },
+  data() {
+    return {
+      events: [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }],
+    };
+  },
+};
+</script>
 
 <style>
 .events-list {
@@ -69,14 +77,3 @@
   cursor: pointer;
 }
 </style>
-
-<script>
-import ListControls from "../components/ListControls.vue";
-import EventCard from "../components/EventCard.vue";
-export default {
-  components: {
-    ListControls,
-    EventCard,
-  },
-};
-</script>

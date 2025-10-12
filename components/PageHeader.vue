@@ -13,6 +13,10 @@
   </div>
 </template>
 
+<script>
+export default {};
+</script>
+
 <style>
 .header {
   height: 70px;
@@ -70,7 +74,3 @@
   color: #2b2b33;
 }
 </style>
-
-<script>
-export default {};
-</script>

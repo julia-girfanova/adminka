@@ -16,6 +16,10 @@
   </div>
 </template>
 
+<script>
+export default {};
+</script>
+
 <style>
 .eventcard {
   border: 1px solid #bebfd1;
@@ -83,7 +87,3 @@
   height: 25px;
 }
 </style>
-
-<script>
-export default {};
-</script>

@@ -19,6 +19,10 @@
   </div>
 </template>
 
+<script>
+export default {};
+</script>
+
 <style>
 .list_controls {
   display: flex;
@@ -73,7 +77,3 @@
   color: #73737a;
 }
 </style>
-
-<script>
-export default {};
-</script>

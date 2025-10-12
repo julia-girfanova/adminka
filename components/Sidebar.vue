@@ -28,7 +28,11 @@
           <div class="text">Контроль</div>
         </div>
       </div>
-      <div class="list-item list-item_active">
+      <div
+        @click="toggle_dropdown('tickets')"
+        class="list-item"
+        :class="[is_dropdown_opened('tickets') ? 'list-item_active' : '']"
+      >
         <div class="element">
           <div class="icon">
             <img src="../public/tiket-outline.svg" />
@@ -56,7 +60,11 @@
           <div class="returns">+12</div>
         </div>
       </div>
-      <div class="list-item list-item_active">
+      <div
+        @click="toggle_dropdown('reports')"
+        class="list-item"
+        :class="[is_dropdown_opened('reports') ? 'list-item_active' : '']"
+      >
         <div class="element">
           <div class="icon">
             <img src="../public/chart-outline.svg" />
@@ -114,6 +122,28 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      active_dropdowns: new Set(),
+    };
+  },
+  methods: {
+    toggle_dropdown(dropdown_name) {
+      if (this.is_dropdown_opened(dropdown_name)) {
+        this.active_dropdowns.delete(dropdown_name);
+      } else {
+        this.active_dropdowns.add(dropdown_name);
+      }
+    },
+    is_dropdown_opened(dropdown_name) {
+      return this.active_dropdowns.has(dropdown_name);
+    },
+  },
+};
+</script>
+
 <style>
 .sidebar {
   width: 250px;
@@ -237,6 +267,3 @@
   justify-content: center;
 }
 </style>
-<script>
-export default {};
-</script>
