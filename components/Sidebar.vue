@@ -28,12 +28,12 @@
           <div class="text">Контроль</div>
         </div>
       </div>
-      <div
-        @click="toggle_dropdown('tickets')"
-        class="list-item"
-        :class="[is_dropdown_opened('tickets') ? 'list-item_active' : '']"
-      >
-        <div class="element">
+      <div class="list-item">
+        <div
+          class="element"
+          @click="toggle_dropdown('tickets')"
+          :class="[is_dropdown_opened('tickets') ? 'list-item_active' : '']"
+        >
           <div class="icon">
             <img src="../public/tiket-outline.svg" />
           </div>
@@ -44,10 +44,26 @@
         </div>
         <ul class="dropdown">
           <li class="dropdown__item">
-            <a class="dropdown__link" href="#">Входные билеты</a>
+            <a
+              class="dropdown__link"
+              @click="set_active_link('entrance_tickets')"
+              :class="[
+                is_active_link('entrance_tickets')
+                  ? 'dropdown__link_active'
+                  : '',
+              ]"
+              href="#"
+              >Входные билеты</a
+            >
           </li>
           <li class="dropdown__item">
-            <a class="dropdown__link dropdown__link_active" href="#">События</a>
+            <a
+              class="dropdown__link"
+              @click="set_active_link('events')"
+              :class="[is_active_link('events') ? 'dropdown__link_active' : '']"
+              href="#"
+              >События</a
+            >
           </li>
         </ul>
       </div>
@@ -60,12 +76,12 @@
           <div class="returns">+12</div>
         </div>
       </div>
-      <div
-        @click="toggle_dropdown('reports')"
-        class="list-item"
-        :class="[is_dropdown_opened('reports') ? 'list-item_active' : '']"
-      >
-        <div class="element">
+      <div class="list-item">
+        <div
+          class="element"
+          @click="toggle_dropdown('reports')"
+          :class="[is_dropdown_opened('reports') ? 'list-item_active' : '']"
+        >
           <div class="icon">
             <img src="../public/chart-outline.svg" />
           </div>
@@ -76,13 +92,39 @@
         </div>
         <ul class="dropdown">
           <li class="dropdown__item">
-            <a class="dropdown__link" href="#">Отчеты о продажах</a>
+            <a
+              class="dropdown__link"
+              @click="set_active_link('sales_reports')"
+              :class="[
+                is_active_link('sales_reports') ? 'dropdown__link_active' : '',
+              ]"
+              href="#"
+              >Отчеты о продажах</a
+            >
           </li>
           <li class="dropdown__item">
-            <a class="dropdown__link" href="#">Закрывающие отчеты</a>
+            <a
+              class="dropdown__link"
+              @click="set_active_link('closing_reports')"
+              :class="[
+                is_active_link('closing_reports')
+                  ? 'dropdown__link_active'
+                  : '',
+              ]"
+              href="#"
+              >Закрывающие отчеты</a
+            >
           </li>
           <li class="dropdown__item">
-            <a class="dropdown__link" href="#">Корешки билетов</a>
+            <a
+              class="dropdown__link"
+              @click="set_active_link('ticket_stubs')"
+              :class="[
+                is_active_link('ticket_stubs') ? 'dropdown__link_active' : '',
+              ]"
+              href="#"
+              >Корешки билетов</a
+            >
           </li>
         </ul>
       </div>
@@ -127,6 +169,7 @@ export default {
   data() {
     return {
       active_dropdowns: new Set(),
+      active_link: "events",
     };
   },
   methods: {
@@ -139,6 +182,12 @@ export default {
     },
     is_dropdown_opened(dropdown_name) {
       return this.active_dropdowns.has(dropdown_name);
+    },
+    set_active_link(link_name) {
+      this.active_link = link_name;
+    },
+    is_active_link(link_name) {
+      return this.active_link === link_name;
     },
   },
 };
@@ -215,7 +264,7 @@ export default {
 .list-item .dropdown {
   display: none;
 }
-.list-item_active .dropdown {
+.list-item_active ~ .dropdown {
   display: flex;
   flex-direction: column;
   gap: 6px;

@@ -58,13 +58,13 @@ export default {};
 }
 .condition-text {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   color: #6a56e6;
 }
 .card_title {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   color: #3d3a5b;
   line-height: 24px;
 }
