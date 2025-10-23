@@ -33,9 +33,42 @@
           </div>
         </div>
       </div>
-      <div class="platform__choise_status">
-        <div class="platform__choise_text">Активный</div>
-        <img class="list_arrow" src="../public/checkmark_16.svg" />
+      <div class="platform__status">
+        <div
+          class="platform__status_name"
+          @click="insert_status__dropdown('status')"
+          :class="[
+            is_status__dropdown_opened('status')
+              ? 'platform__status_active'
+              : '',
+          ]"
+        >
+          <div class="platform__choise_text">{{ status_select_text }}</div>
+          <img class="status_arrow" src="../public/checkmark_16.svg" />
+        </div>
+        <div class="status__dropdown">
+          <div
+            class="status__dropdown_vm"
+            v-for="status in statuses"
+            @click="select_status(status.id)"
+            :key="status.id"
+          >
+            <div class="status__dropdown_name">{{ status.name }}</div>
+            <div
+              class="status__dropdown_checkbox"
+              :class="[
+                is_dropdown_checkbox_registered(status.id)
+                  ? 'status__dropdown_checkbox_active'
+                  : '',
+              ]"
+            >
+              <img
+                class="dropdown_checkbox"
+                src="https://organization.vmuzey.com/_nuxt/img/checked-icon.87bddce.svg"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="platform__search">
@@ -50,7 +83,29 @@ export default {
   data() {
     return {
       active_vm_dropdown: new Set(),
+      active_status__dropdown: new Set(),
+      select_status__dropdown: new Set(),
+      statuses: [
+        { id: "active", name: "Активный" },
+        { id: "canceled", name: "Отменен" },
+        { id: "finished", name: "Завершено" },
+      ],
     };
+  },
+  computed: {
+    status_select_text() {
+      if (this.select_status__dropdown.size === 0) {
+        return "Выберите статус";
+      } else {
+        return [...this.select_status__dropdown]
+          .map((id) => {
+            return this.statuses.find((status) => {
+              return status.id === id;
+            }).name;
+          })
+          .join(", ");
+      }
+    },
   },
   methods: {
     toggle_vm_dropdown(vm_dropdown) {
@@ -62,6 +117,27 @@ export default {
     },
     is_vm_dropdown_opened(vm_dropdown) {
       return this.active_vm_dropdown.has(vm_dropdown);
+    },
+    insert_status__dropdown(status__dropdown) {
+      if (this.is_status__dropdown_opened(status__dropdown)) {
+        this.active_status__dropdown.delete(status__dropdown);
+      } else {
+        this.active_status__dropdown.add(status__dropdown);
+      }
+    },
+    is_status__dropdown_opened(status__dropdown) {
+      return this.active_status__dropdown.has(status__dropdown);
+    },
+    select_status(status_name) {
+      if (this.select_status__dropdown.has(status_name)) {
+        this.select_status__dropdown.delete(status_name);
+      } else {
+        this.select_status__dropdown.add(status_name);
+      }
+    },
+
+    is_dropdown_checkbox_registered(status_id) {
+      return this.select_status__dropdown.has(status_id);
     },
   },
 };
@@ -132,10 +208,25 @@ export default {
   justify-content: center;
   margin-left: auto;
 }
-.dropdown_checkbox {
+.status__dropdown_checkbox {
+  border-radius: 30%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #73737a;
+  margin-left: auto;
+}
+.status__dropdown_checkbox .dropdown_checkbox {
+  display: none;
+}
+.status__dropdown_checkbox_active .dropdown_checkbox {
+  display: flex;
   width: 9px;
   height: 9px;
 }
+
 .platform__choise_img {
   width: 100px;
   height: 55px;
@@ -167,7 +258,12 @@ export default {
   display: flex;
   align-items: center;
 }
-.platform__choise_status {
+.platform__status {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.platform__status_name {
   border: 1px solid #bebfd1;
   border-radius: 16px;
   width: 220px;
@@ -175,6 +271,45 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
+.platform__status_name ~ .status__dropdown {
+  display: none;
+}
+.platform__status_active ~ .status__dropdown {
+  width: 100%;
+  height: 156px;
+  border: 1px solid #bebfd1;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 55px;
+  background-color: white;
+  box-shadow: 5px 5px 15px 1px #bebfd1;
+  box-sizing: border-box;
+}
+.status__dropdown_vm {
+  height: 52px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.status_arrow {
+  width: 16px;
+  height: 16px;
+  margin-right: 18px;
+}
+.platform__status_active .status_arrow {
+  transform: rotate(180deg);
+}
+.status__dropdown_vm:hover {
+  background-color: #f4f4f6;
+}
+
 .platform__search_icon {
   margin-left: 12px;
 }
